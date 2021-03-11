@@ -35,23 +35,14 @@ public class Zoo {
         return employees;
     }
 
-
-    public void setAnimals(Animal[] animals) {
-        this.animals = animals;
-    }
-
-    public void setEmployees(Employees[] employees) {
-        this.employees = employees;
-    }
-
     /**
      * Метод добавления нового работника
      * @param name - имя
      * */
     protected void addNewEmployee(String name){
         Employees employee = new Employees(name);
-        Employees[] newEmployees = Arrays.copyOf(getEmployees(), (getEmployees().length + 1));
-        newEmployees[getEmployees().length] = employee;
+        Employees[] newEmployees = Arrays.copyOf(employees(), (employees.length + 1));
+        newEmployees[employees().length] = employee;
         employees = newEmployees;
     }
 
@@ -70,7 +61,7 @@ public class Zoo {
             for(int i = 0; i < length; i++){
                 if(employees[i].getName() == name){
                     Employees temp = new Employees("");
-                    temp = getEmployees()[length - 1];
+                    temp = employees[length - 1];
                     employees[length - 1] = employees[i];
                     employees[i] = temp;
                     employees = Arrays.copyOf(employees, length - 1);
@@ -102,10 +93,10 @@ public class Zoo {
      * */
     protected void addNewAnimal(String name, String kind, String condition){
         Animal animal = new Animal(name, kind, condition);
-        int length = getAnimals().length;
-        Animal[] newAnimals = Arrays.copyOf(getAnimals(), length + 1);
+        int length = animals().length;
+        Animal[] newAnimals = Arrays.copyOf(animals(), length + 1);
         newAnimals[length] = animal;
-        setAnimals(newAnimals);
+        animals = newAnimals;
     }
 
     /**
@@ -154,7 +145,7 @@ public class Zoo {
      * @param nameOfAnimal - имя животного
      * */
     protected void sendToFeed(String name, String nameOfAnimal){
-        for(Employees employee : getEmployees()){
+        for(Employees employee : employees()){
             if (employee.getName() == name){
                 employee.feedTheAnimal(nameOfAnimal);
             }
@@ -166,7 +157,7 @@ public class Zoo {
      * @param aviary - номер вольера
      * */
     protected void sendToClean(String name, int aviary){
-        for(Employees employee : getEmployees()){
+        for(Employees employee : employees()){
             if (employee.getName() == name){
                 employee.cleanUpTheAviary(aviary);
             }
@@ -177,7 +168,7 @@ public class Zoo {
      * @param name - имя
      * */
     protected void ItWasSick(String name){
-        for(Animal animal : getAnimals()){
+        for(Animal animal : animals()){
             if (animal.getName() == name)
                 animal.ItIsSick();
         }
